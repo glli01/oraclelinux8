@@ -53,6 +53,7 @@ cmake \
 && git checkout stable \
 && make CMAKE_BUILD_TYPE=RelWithDebInfo \
 && make install \
+&& rm -rf neovim \
 && LV_BRANCH='release-1.3/neovim-0.9' /usr/bin/zsh -c "$(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)"; exit 0
 
 RUN echo 'Add path from Lunarvim setup'\
@@ -62,8 +63,8 @@ RUN echo 'Add path from Lunarvim setup'\
 
 RUN echo 'Fixes for oh-my-zsh git and setup bashrc' \
 && echo 'exec /bin/zsh' >> ~/.bashrc \ 
-&& echo 'cd /home/dev' >> ~/.bashrc \
-&& echo 'cd /home/dev' >> ~/.zshrc
+&& echo 'cd /root/dev' >> ~/.bashrc \
+&& echo 'cd /root/dev' >> ~/.zshrc
 
 RUN echo 'INSTALL autojump - use with "j" in terminal'\
 && git clone https://github.com/wting/autojump.git \

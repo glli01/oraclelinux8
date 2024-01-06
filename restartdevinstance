@@ -1,1 +1,1 @@
-sudo podman stop dev_instance; sudo podman container rm dev_instance; sudo podman run -it --name dev_instance -v "$(pwd)":/root/"${PWD##*/}" -e HOME=/root --net=host dev-image:latest /bin/bash
+sudo podman stop dev_instance; sudo podman container rm dev_instance; sudo podman run -it --name dev_instance -v "$(pwd)":/root/dev/"${PWD##*/}" -e HOME=/root --net=host dev-image:latest /bin/bash
