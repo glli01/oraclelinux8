@@ -1,10 +1,13 @@
 FROM ghcr.io/oracle/oraclelinux8-nodejs:20-20231221
+USER root
+WORKDIR /root
+
 RUN echo 'Setting up packages' \
 && yum update \
 && yum install -y \
 zsh 
 
-ENTRYPOINT ["/usr/bin/zsh"]
+SHELL ["/usr/bin/zsh", "-c"]
 ENV SHELL=zsh
 
 RUN echo 'Setting up rest of packages in zsh' \
@@ -24,9 +27,8 @@ sudo \
 fontconfig 
 
 RUN echo 'Get Other things' \
-&& echo $PATH \
 && /usr/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"\
-&& /usr/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"\
+&& /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/install_manual.sh)"\
 && curl -fsSL https://get.pnpm.io/install.sh | zsh - \
 && source ~/.zshrc
 
@@ -35,7 +37,7 @@ RUN echo 'Setup dev tools' \
 && ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme" \
 && git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
 && ~/.fzf/install \
-&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | zsh \ 
+&& curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash \ 
 && LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')\
 && curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" \
 && tar xf lazygit.tar.gz lazygit \
@@ -69,8 +71,5 @@ RUN echo 'INSTALL autojump - use with "j" in terminal'\
 && ./install.py \
 && rm -rf ~/autojump \
 && echo '[[ -s /root/.autojump/etc/profile.d/autojump.sh ]] && source /root/.autojump/etc/profile.d/autojump.sh\nautoload -U compinit && compinit -u' >> ~/.zshrc
-
-USER root
-WORKDIR /root
 
 RUN source ~/.zshrc
