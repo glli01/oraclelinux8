@@ -30,6 +30,9 @@ zip \
 python3.11 \
 cargo \
 sudo \
+docker \
+oracle-instantclient-release-el8 \ 
+oracle-instantclient-basic \
 fontconfig \
 tmux
 
