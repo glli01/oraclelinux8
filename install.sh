@@ -118,7 +118,7 @@ check_ios_version () {
 
 start_colima_instance () {
   echo 'Starting Colima Instance...'
-  colima start --profile rosetta --arch aarch64 --vm-type=vz --vz-rosetta 
+  colima start --arch aarch64 --vm-type=vz --vz-rosetta 
 
   if [ $? != 0 ]
   then
