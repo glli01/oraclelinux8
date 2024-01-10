@@ -101,6 +101,7 @@ check_ios_version () {
   if [ $IOS_BASE_VERSION -lt 14 ]
   then
     echo 'Detected your iOS version as '$IOS_BASE_VERSION'. Please ensure that your iOS is updated to at least 14.1'
+    exit 1
   fi
   local regex2='[0-9]+.([0-9]+)'
 
@@ -110,10 +111,10 @@ check_ios_version () {
   if [ $IOS_SECOND_VERSION -lt 1 ]
   then
     echo 'Detected your iOS version as '$IOS_BASE_VERSION\.$IOS_SECOND_VERSION'. Please ensure that your iOS is updated to at least 14.1'
+    exit 1
   fi
 
   echo 'IOS_VERSION_CHECK SUCCEEDED: Version '$IOS_BASE_VERSION\.$IOS_SECOND_VERSION' is >= 14.1.'
-
 }
 
 start_colima_instance () {
