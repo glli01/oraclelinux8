@@ -67,6 +67,7 @@ check_for_colima () {
       exit 1
     fi
   fi
+  brew services start colima;
   echo 'CHECK_FOR_COLIMA succeeded: Colima is installed.'
 }
 
@@ -166,5 +167,6 @@ check_ios_version
 check_for_homebrew
 check_for_colima
 check_for_rosetta_2
+start_colima_instance
 create_fixed_docker_builder
 build_docker_image

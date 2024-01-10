@@ -1,0 +1,1 @@
+ssh colima 'sed "$(( $(wc -l <  ~/.bashrc)-1+1 )),$ d" ~/.bashrc > .bashrc.txt; mv .bashrc.txt ~/.bashrc'; ssh colima 'echo "docker run -it --name dev_instance dev-image /bin/bash" >> ~/.bashrc'; colima ssh;
