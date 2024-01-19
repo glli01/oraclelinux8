@@ -76,14 +76,14 @@ RUN echo 'Setup Neovim 0.95.0 from release build' \
 RUN echo 'Setup Lazyvim' \
 && git clone https://github.com/LazyVim/starter ~/.config/nvim
 
-RUN echo 'Add path from Lunarvim setup, vi aliases, and TERM colors'\
+RUN echo 'Add path from vi aliases, and TERM colors'\
 && echo 'export PATH=/root/.local/bin:$PATH' >> ~/.zshenv \
 && echo 'export LANG=en_ES.UTF-8' >> ~/.zshrc  \
 # This command makes it so lunarvim can use the correct colors on mac terminals - always opens in tmux.
-&& echo '#!/bin/bash\nif [ ! "$TMUX" ]; then tmux attach -t lvim $1 || tmux new -s lvim lvim $1; else lvim $1; fi' >> /usr/local/bin/lunarvimtotmux \
-&& chmod +x /usr/local/bin/lunarvimtotmux \
-&& echo 'alias vi="lunarvimtotmux"'>> ~/.zshrc \
-&& echo 'alias vim="lunarvimtotmux"' >> ~/.zshrc \
+&& echo '#!/bin/bash\nif [ ! "$TMUX" ]; then tmux attach -t nvim $1 || tmux new -s nvim nvim $1; else nvim $1; fi' >> /usr/local/bin/lunarvimtotmux \
+&& chmod +x /usr/local/bin/neovimtotmux \
+&& echo 'alias vi="neovimtotmux"'>> ~/.zshrc \
+&& echo 'alias vim="neovimtotmux"' >> ~/.zshrc \
 && echo 'export TERM=xterm-256color' >> ~/.zshrc \
 && npm install -g neovim
 
@@ -110,13 +110,13 @@ bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel\n\
 \n\
 run '~/.tmux/plugins/tpm/tpm'" >> ~/.tmux.conf
 
-RUN echo 'Add Tmux plugin to lunar vim to allow shortcuts to persist' \
-&& echo "\nlvim.plugins = {\n\
-  {\n\
-    "\""christoomey/vim-tmux-navigator"\"",\n\
-    lazy = false\n\
-  },\n\
-}" >> ~/.config/lvim/config.lua
+# RUN echo 'Add Tmux plugin to lunar vim to allow shortcuts to persist' \
+# && echo "\nlvim.plugins = {\n\
+#   {\n\
+#     "\""christoomey/vim-tmux-navigator"\"",\n\
+#     lazy = false\n\
+#   },\n\
+# }" >> ~/.config/lvim/config.lua
 
 RUN echo 'Fixes for oh-my-zsh git and setup bashrc' \
 && echo 'exec /bin/zsh' >> ~/.bashrc
