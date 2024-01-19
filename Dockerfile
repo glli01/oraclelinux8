@@ -32,7 +32,6 @@ cargo \
 sudo \
 docker \
 oracle-instantclient-release-el8 \ 
-oracle-instantclient-basic \
 fontconfig \
 tmux
 
@@ -72,8 +71,10 @@ RUN echo 'Setup Neovim 0.95.0 from release build' \
 && cp -r nvim-linux64/* /usr/local \ 
 && rm -rf nvim-linux64 nvim-linux64.tar.gz
 
-RUN echo 'Setup Lunarvim' \
-&& LV_BRANCH='release-1.3/neovim-0.9' /usr/bin/zsh -c "$(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)"
+# RUN echo 'Setup Lunarvim' \
+# && LV_BRANCH='release-1.3/neovim-0.9' /usr/bin/zsh -c "$(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)"
+RUN echo 'Setup Lazyvim' \
+&& git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 RUN echo 'Add path from Lunarvim setup, vi aliases, and TERM colors'\
 && echo 'export PATH=/root/.local/bin:$PATH' >> ~/.zshenv \
