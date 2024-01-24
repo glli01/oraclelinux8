@@ -128,10 +128,10 @@ start_colima_instance () {
   fi
 }
 
-create_fixed_docker_builder () {
+create_and_use_fixed_docker_builder () {
   echo 'Create fixed docker_builder...'
-  ssh colima 'docker buildx rm'
-  ssh colima 'docker buildx create --name fixed_builder --driver-opt 'image=moby/buildkit:v0.12.1-rootless' --bootstrap --use'
+  # ssh colima 'docker buildx create --name fixed_builder --driver-opt 'image=moby/buildkit:v0.12.1-rootless' --bootstrap --use'
+  ssh colima 'docker buildx inspect fixed_builder; if [ $? != 0 ]; then docker buildx create --name fixed_builder --driver-opt "image=moby/buildkit:v0.12.1-rootless" --bootstrap --use;fi'
   check_for_failure CREATE_FIXED_DOCKER_BUILDER
 }
 
@@ -169,5 +169,5 @@ check_for_homebrew
 check_for_colima
 check_for_rosetta_2
 start_colima_instance
-create_fixed_docker_builder
+create_and_use_fixed_docker_builder
 build_docker_image
