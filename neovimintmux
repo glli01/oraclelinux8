@@ -1,0 +1,2 @@
+#!/bin/bash
+if [ ! "$TMUX" ]; then tmux new -s nvim nvim $1 || tmux attach -t nvim \; new-window nvim $1; else nvim $1; fi

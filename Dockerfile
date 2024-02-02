@@ -82,7 +82,7 @@ RUN echo 'Add path from vi aliases, and TERM colors'\
 && echo 'export PATH=/root/.local/bin:$PATH' >> ~/.zshenv \
 && echo 'export LANG=en_ES.UTF-8' >> ~/.zshrc  \
 # This command makes it so lunarvim can use the correct colors on mac terminals - always opens in tmux.
-&& echo '#!/bin/bash\nif [ ! "$TMUX" ]; then tmux attach -t nvim $1 || tmux new -s nvim nvim $1; else nvim $1; fi' >> /usr/local/bin/neovimtotmux \
+&& echo '#!/bin/bash\nif [ ! "$TMUX" ]; then tmux new -s nvim nvim $1 || tmux attach -t nvim \; new-window nvim $1; else nvim $1; fi' >> /usr/local/bin/neovimtotmux \
 && chmod +x /usr/local/bin/neovimtotmux \
 && echo 'alias vi="neovimtotmux"'>> ~/.zshrc \
 && echo 'alias vim="neovimtotmux"' >> ~/.zshrc \
